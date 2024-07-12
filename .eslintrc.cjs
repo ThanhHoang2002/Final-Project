@@ -8,9 +8,9 @@ module.exports = {
     'eslint-config-prettier',
     'prettier'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs,', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'prettier', 'react-hooks'],
+  plugins: ['react-refresh', 'prettier'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'prettier/prettier': [
@@ -26,8 +26,6 @@ module.exports = {
         printWidth: 120,
         jsxSingleQuote: true
       }
-    ],
-    'react-hooks/rules-of-hooks': 'none',
-    'react-hooks/exhaustive-deps': 'none'
+    ]
   }
 }

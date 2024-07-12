@@ -17,22 +17,21 @@ export const HeaderSlice = createSlice({
   name: 'header',
   initialState,
   reducers: {
-    setOpenAddress: (state, actions) => {
-      state.isOpenAddress = actions.payload
+    setHomeHeader: (state) => {
+      state.isOpenAddress = false
+      state.isOpenRing = true
+      state.isOpenProfile = true
+      state.isOpenTracking = true
+      state.isOpenBack = false
     },
-    setOpenRing: (state, actions) => {
-      state.isOpenRing = actions.payload
-    },
-    setOpenProfile: (state, actions) => {
-      state.isOpenProfile = actions.payload
-    },
-    setOpenTracking: (state, actions) => {
-      state.isOpenTracking = actions.payload
-    },
-    setOpenBack: (state, actions) => {
-      state.isOpenBack = actions.payload
+    setOrderHeader: (state) => {
+      state.isOpenAddress = true
+      state.isOpenRing = true
+      state.isOpenProfile = true
+      state.isOpenTracking = false
+      state.isOpenBack = false
     }
   }
 })
-export const { setOpenAddress, setOpenRing, setOpenProfile, setOpenTracking, setOpenBack } = HeaderSlice.actions
+export const { setHomeHeader, setOrderHeader } = HeaderSlice.actions
 export default HeaderSlice.reducer

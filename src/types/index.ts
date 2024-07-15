@@ -11,7 +11,17 @@ export type Banner = {
   BANNER_DIRECTIONAL_LINK: string | null
   OUTSIDE_LINK: string | null
 }
-
+export type Category = {
+  CategoryCode: string
+  CategoryName_VN: string
+  CategoryName_EN: string
+  PhotoLink: string
+  PhotoLink_EN: string
+  orderby: string
+  ComboComponent: boolean
+  Default_Cate: boolean
+  HomepageMenu: boolean
+}
 export type Store = {
   address: string
   local: string

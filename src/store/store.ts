@@ -1,19 +1,21 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import ThemeSlice from './features/ThemeSlice'
-import HeaderSlice from './features/HeaderSlice'
-import ReceivingMethodSlice from './features/ReceivingMethodSlice'
+import ThemeSlice from './slices/ThemeSlice'
+import HeaderSlice from './slices/HeaderSlice'
+import ReceivingMethodSlice from './slices/ReceivingMethodSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { categoriesSlice } from './slices/CategoriesSlice'
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['receivingMethodState']
+  whitelist: ['receivingMethodState', 'catagoriesState']
 }
 const rootReducer = combineReducers({
   themeState: ThemeSlice,
   headerState: HeaderSlice,
-  receivingMethodState: ReceivingMethodSlice
+  receivingMethodState: ReceivingMethodSlice,
+  catagoriesState: categoriesSlice.reducer
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({

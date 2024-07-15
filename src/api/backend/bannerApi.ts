@@ -3,14 +3,14 @@ const dataRaw: Banner[] = [
   {
     BANNER_POSITION_ID: '1',
     BANNER_POSITION_NAME: 'TOP BANNER',
-    BANNER_NAME: 'BOGO 2024',
-    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Hometop-vie_B3X5M_030720240950.jpg',
-    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Hometop-eng_GUVLQ_030720240950.jpg',
-    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Hometop-vie_RU8SV_030720240950.jpg',
-    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Hometop-eng_JBSJI_030720240950.jpg',
-    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/mb Hometop-vie_BMYQA_030720240950.jpg',
-    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/mb Hometop-eng_WS7FG_030720240950.jpg',
-    BANNER_DIRECTIONAL_LINK: '/order/BUYONEGETONE',
+    BANNER_NAME: '50PERCENT',
+    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/VieHometop50_W6CIG_010720241005.jpg',
+    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/EngHometop50_WUYRX_010720241005.jpg',
+    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/VieHometop50_1JQ88_010720241005.jpg',
+    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/EngHometop50_J8R6Y_010720241005.jpg',
+    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/VieMBHometop50_EUT2T_010720241005.jpg',
+    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/EngMBHometop50_VZ6LP_010720241005.jpg',
+    BANNER_DIRECTIONAL_LINK: '/order/50PERCENTOFF',
     OUTSIDE_LINK: 'false'
   },
   {
@@ -23,7 +23,20 @@ const dataRaw: Banner[] = [
     BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_26FW4_280520240753.jpg',
     BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/MOBILE-VIE_7ITVX_280520240753.jpg',
     BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/MOBILE-VIE_OPWVJ_280520240753.jpg',
-    BANNER_DIRECTIONAL_LINK: '/order/SUMMER2024',
+    BANNER_DIRECTIONAL_LINK: '/order/COMBO',
+    OUTSIDE_LINK: 'false'
+  },
+  {
+    BANNER_POSITION_ID: '1',
+    BANNER_POSITION_NAME: 'TOP BANNER',
+    BANNER_NAME: 'Combo 2024',
+    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_ZBBNC_110720240649.jpg',
+    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_VQ8BM_110720240649.jpg',
+    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_A6AH1_110720240649.jpg',
+    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_U013E_110720240649.jpg',
+    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Mobile - Vie_FF44W_110720240649.jpg',
+    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Mobile - Eng_D8KD1_110720240649.jpg',
+    BANNER_DIRECTIONAL_LINK: '/order/COMBO',
     OUTSIDE_LINK: 'false'
   },
   {
@@ -36,33 +49,37 @@ const dataRaw: Banner[] = [
     BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_KZTY7_280520240748.jpg',
     BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_CFRXG_280520240748.jpg',
     BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_L9KI3_280520240748.jpg',
-    BANNER_DIRECTIONAL_LINK: '/order/SUMMER2024',
+    BANNER_DIRECTIONAL_LINK: '/order/COMBO',
     OUTSIDE_LINK: 'false'
   },
   {
     BANNER_POSITION_ID: '2',
     BANNER_POSITION_NAME: 'MIDDLE BANNER',
     BANNER_NAME: 'Summer 2024 _MID',
-    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_DNLDE_280520240749.jpg',
-    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_BPNG9_280520240749.jpg',
-    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_41T0K_280520240749.jpg',
-    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_2RXQ4_280520240749.jpg',
-    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_NJGBO_280520240749.jpg',
-    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_317H1_280520240749.jpg',
-    BANNER_DIRECTIONAL_LINK: '/order/SUMMER2024',
+    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_8ID0J_110720240651.jpg',
+    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_CIW0D_110720240651.jpg',
+    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_YGV30_110720240651.jpg',
+    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_2M3IC_110720240651.jpg',
+    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Vie_498IO_110720240651.jpg',
+    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Desktop - Eng_0UFNW_110720240651.jpg',
+    BANNER_DIRECTIONAL_LINK: '/order/COMBO',
     OUTSIDE_LINK: 'false'
   },
   {
     BANNER_POSITION_ID: '2',
     BANNER_POSITION_NAME: 'MIDDLE BANNER',
-    BANNER_NAME: 'BOGO2024_mid',
-    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-vie_BO7X1_030720240951.jpg',
-    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-eng_X1FOV_030720240951.jpg',
-    BANNER_IMAGE_LINK_TABLET: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-vie_VZMC5_030720240951.jpg',
-    BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-eng_W1PZW_030720240951.jpg',
-    BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-vie_QA36D_030720240951.jpg',
-    BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle-eng_BY3UH_030720240951.jpg',
-    BANNER_DIRECTIONAL_LINK: '/order/BUYONEGETONE',
+    BANNER_NAME: '50PERCENT_MID',
+    BANNER_IMAGE_LINK: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop VIE_ARLY6_010720241000.jpg',
+    BANNER_IMAGE_LINK_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop ENG_J3O6N_010720241000.jpg',
+    BANNER_IMAGE_LINK_TABLET:
+      'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop VIE_MGBGA_010720241000.jpg',
+    BANNER_IMAGE_LINK_TABLET_EN:
+      'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop ENG_Z0GYT_010720241000.jpg',
+    BANNER_IMAGE_LINK_MOBILE:
+      'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop VIE_UX2DB_010720241000.jpg',
+    BANNER_IMAGE_LINK_MOBILE_EN:
+      'https://cdn.pizzahut.vn/images/Web_V3/Homepage/Middle Desktop ENG_Z9S8D_010720241000.jpg',
+    BANNER_DIRECTIONAL_LINK: '/order/50PERCENTOFF',
     OUTSIDE_LINK: 'false'
   },
   {

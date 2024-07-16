@@ -9,6 +9,10 @@ export default {
         black: '#000000',
         red: '#cb1c3b',
         white: '#ffffff'
+      },
+      boxShadow: {
+        category:
+          'rgba(0, 0, 0, 0.22) 0px -1px 3px -1px, rgba(0, 0, 0, 0) 0px 4px 5px 0px, rgba(0, 0, 0, 0) 0px 0px 10px 0px'
       }
     },
     screens: {
@@ -22,6 +26,19 @@ export default {
       // => @media (min-width: 1280px) { ... }
     }
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.scrollbar-thin': {
+          'scrollbar-width': 'thin'
+        },
+        '.scrollbar-none': {
+          'scrollbar-width': 'none'
+        }
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    }
+  ],
   darkMode: 'selector'
 }

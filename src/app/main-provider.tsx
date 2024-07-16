@@ -6,7 +6,7 @@ import Loading from '../components/ui/Loading/AppLoading'
 import { ErrorBoundary } from 'react-error-boundary'
 import { MainErrorFallback } from '../components/error/main'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 type AppProviderProps = {
   children: React.ReactNode
 }
@@ -19,7 +19,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           <ErrorBoundary FallbackComponent={MainErrorFallback}>
             <QueryClientProvider client={queryClient}>
               {children}
-              <ReactQueryDevtools initialIsOpen={true} />
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </QueryClientProvider>
           </ErrorBoundary>
         </Suspense>

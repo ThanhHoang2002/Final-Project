@@ -37,7 +37,7 @@ const Carousel = (props: CarouselProps) => {
                 : (item.BANNER_IMAGE_LINK_MOBILE_EN as string)
             }
             alt={item.BANNER_NAME as string}
-            className='w-full min-h-48 tablet:!hidden'
+            className='w-full cursor-pointer min-h-48 tablet:!hidden'
             onClick={(e) => handleClick(e, item)}
           />
           <img
@@ -47,7 +47,7 @@ const Carousel = (props: CarouselProps) => {
                 : (item.BANNER_IMAGE_LINK_TABLET_EN as string)
             }
             alt={item.BANNER_NAME as string}
-            className='w-full min-h-48 !hidden tablet:!block laptop:!hidden'
+            className='w-full cursor-pointer min-h-48 !hidden tablet:!block laptop:!hidden'
             onClick={(e) => handleClick(e, item)}
           />
           <img
@@ -57,7 +57,7 @@ const Carousel = (props: CarouselProps) => {
                 : (item.BANNER_IMAGE_LINK_EN as string)
             }
             alt={item.BANNER_NAME as string}
-            className='w-full min-h-48 !hidden  laptop:!block'
+            className='w-full cursor-pointer min-h-48 !hidden  laptop:!block'
             onClick={(e) => handleClick(e, item)}
           />
         </div>

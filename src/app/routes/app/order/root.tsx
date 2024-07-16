@@ -24,8 +24,8 @@ const Order = () => {
   }, [])
   return (
     <OrderLayout>
-      <div>
-        <div>
+      <div className='w-full min-h-screen h-[1000px] flex flex-col'>
+        <div className='w-full fixed desktop:sticky desktop:top-[64px] bottom-[60px] '>
           <Category />
         </div>
         <Suspense fallback={<ComponentLoading />}>

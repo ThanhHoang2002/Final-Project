@@ -24,7 +24,9 @@ const Header = () => {
     i18n.changeLanguage(Object.values(ELanguage)[position])
   }
   return (
-    <div className=' h-16 w-full bg-geen flex items-center justify-between px-3 tablet:px-5 shadow-lg bg-while'>
+    <div
+      className={`h-16 w-full bg-geen flex items-center justify-between px-3 tablet:px-5 bg-while shadow-lg ${isOpenAddress ? 'desktop:shadow-none' : ''}`}
+    >
       <div className='flex items-center'>
         <div
           className={`${isOpenBack ? 'flex items-center cursor-pointer mr-3 hover:bg-[rgba(10,128,32,0.04)] rounded-[4px] px-2 py-[6px]' : 'hidden'}`}

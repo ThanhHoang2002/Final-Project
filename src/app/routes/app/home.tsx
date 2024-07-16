@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useAppDispatch } from '../../../hooks/reduxHooks'
 import { setHomeHeader } from '../../../store/slices/HeaderSlice'
 import ReceivingMethod from '../../../features/receivingMethod/components'
-import ListMiddleBanner from '../../../components/ui/Banner/MiddleBanner/ListMiddleBanner'
+import ListMiddleBanner from '../../../features/banner/components/MiddleBanner/ListMiddleBanner'
 import { useTranslation } from 'react-i18next'
 import Button from '../../../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
-import TopBanner from '../../../components/ui/Banner/TopBanner'
+import TopBanner from '../../../features/banner/components/TopBanner'
 import DefaultLayout from '../../../components/layout/DefaultLayout'
 const HomeRoute = () => {
   const dispatch = useAppDispatch()
@@ -36,7 +36,7 @@ const HomeRoute = () => {
         </div>
       </div>
       <div className='w-full flex justify-center items-center mb-3'>
-        <div className='max-w-[1120px] w-full h-[65px] p-[10px] '>
+        <div className='max-w-[1120px] w-full h-[65px] tablet:px-[10px] py-[10px] px-[6px] '>
           <Button onClick={() => navigate('/order')}>{t('See Complete Menu')}</Button>
         </div>
       </div>

@@ -3,12 +3,12 @@ import ThemeSlice from './slices/ThemeSlice'
 import HeaderSlice from './slices/HeaderSlice'
 import ReceivingMethodSlice from './slices/ReceivingMethodSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import storageSession from 'redux-persist/lib/storage/session'
 import { categoriesSlice } from './slices/CategoriesSlice'
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage,
+  storage: storageSession,
   whitelist: ['receivingMethodState', 'catagoriesState']
 }
 const rootReducer = combineReducers({

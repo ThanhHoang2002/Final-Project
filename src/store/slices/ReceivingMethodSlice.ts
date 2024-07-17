@@ -17,8 +17,15 @@ const ReceivingMethodSlice = createSlice({
   reducers: {
     setReceivingMethod: (state, actions) => {
       state.receivingMethod = actions.payload
+      ;(state.address = ''), (state.selectedStore = null)
+    },
+    setChosenAddress: (state, actions) => {
+      state.address = actions.payload
+    },
+    chooseStore: (state, actions) => {
+      state.selectedStore = actions.payload
     }
   }
 })
-export const { setReceivingMethod } = ReceivingMethodSlice.actions
+export const { setReceivingMethod, setChosenAddress, chooseStore } = ReceivingMethodSlice.actions
 export default ReceivingMethodSlice.reducer

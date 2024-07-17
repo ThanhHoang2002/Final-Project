@@ -22,6 +22,7 @@ const Carousel = (props: CarouselProps) => {
   const handleClick = (e: MouseEvent, banner: Banner) => {
     if (isDragging) {
       e.preventDefault()
+      console.log('dragging')
     } else {
       navigate(banner.BANNER_DIRECTIONAL_LINK as string)
     }

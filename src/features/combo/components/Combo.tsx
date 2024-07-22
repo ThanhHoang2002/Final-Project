@@ -11,7 +11,6 @@ import { toast } from 'react-toastify'
 interface ComboProps {
   combo: ComboEntity
   isPending: boolean
-  handleAddCombo: () => void
 }
 const Combo = (props: ComboProps) => {
   const { combo, isPending } = props

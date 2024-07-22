@@ -53,7 +53,7 @@ const ComboDetail = (props: ComboDetailProps) => {
                   <p className='text-[#0A8020] '>
                     {pizzaInCombo.quantity}
                     {' x '}
-                    {pizzaInCombo.pizza.pizzaType.name}
+                    {pizzaInCombo.pizza.name}
                   </p>
                   <p>
                     {'+ '}

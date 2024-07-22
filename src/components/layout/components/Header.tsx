@@ -5,15 +5,18 @@ import destopLogo from '../../../assets/images/logos/logo.png'
 import tabletLogo from '../../../assets/images/logos/logo web.png'
 import Back from '../../ui/Icon/Back'
 import Address from '../../ui/Address'
-import { useAppSelector } from '../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
 import { useTranslation } from 'react-i18next'
 import { ELanguage } from '../../../types'
 import { Link, useNavigate } from 'react-router-dom'
+import { openModal } from '../../../store/slices/ModalSlice'
+import ReceivingMethod from '../../../features/receivingMethod/components'
 const Header = () => {
   const { t, i18n } = useTranslation(['header'])
   const { isOpenAddress, isOpenBack, isOpenProfile, isOpenRing, isOpenTracking } = useAppSelector(
     (state) => state.headerState
   )
+  const dispatch = useAppDispatch()
   const currentLanguage = i18n.language as ELanguage
   const position: number =
     Object.values(ELanguage).indexOf(currentLanguage) + 1 > Object.values(ELanguage).length - 1
@@ -50,7 +53,10 @@ const Header = () => {
           >
             {Object.values(ELanguage)[position]}
           </p>
-          <div className={`${isOpenAddress || 'hidden'} tablet:order-first`}>
+          <div
+            className={`${isOpenAddress || 'hidden'} tablet:order-first`}
+            onClick={() => dispatch(openModal(<ReceivingMethod isShowClose={true} />))}
+          >
             <Address />
           </div>
         </div>

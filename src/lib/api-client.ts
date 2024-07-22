@@ -5,7 +5,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
     config.headers.Accept = 'application/json'
   }
 
-  config.withCredentials = true
+  config.withCredentials = false
   return config
 }
 
@@ -16,16 +16,16 @@ export const api_client = Axios.create({
 api_client.interceptors.request.use(authRequestInterceptor)
 api_client.interceptors.response.use(
   (response) => {
-    return response.data
+    return response
   },
   (error) => {
     const message = error.response?.data?.message || error.message
     console.error(message)
 
     if (error.response?.status === 401) {
-      const searchParams = new URLSearchParams()
-      const redirectTo = searchParams.get('redirectTo')
-      window.location.href = `/auth/login?redirectTo=${redirectTo}`
+      // const searchParams = new URLSearchParams()
+      // const redirectTo = searchParams.get('redirectTo')
+      // window.location.href = `/auth/login?redirectTo=${redirectTo}`
     }
 
     return Promise.reject(error)

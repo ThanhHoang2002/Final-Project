@@ -6,6 +6,7 @@ const HomeRoute = React.lazy(() => import('./app/home'))
 const OrderRoute = React.lazy(() => import('./app/order/root'))
 const PizzaRoute = React.lazy(() => import('./app/order/pizza'))
 const ComboRoute = React.lazy(() => import('./app/order/combo'))
+const FoodRoute = React.lazy(() => import('./app/order/food'))
 export const createRouter = (categories: Category[]) =>
   createBrowserRouter([
     {
@@ -16,15 +17,22 @@ export const createRouter = (categories: Category[]) =>
       path: '/order',
       element: <OrderRoute />,
       children: categories.map((category) => {
-        if (category.ComboComponent) {
+        if (category.ComboComponent == null) {
           return {
             path: category.CategoryCode,
-            element: <ComboRoute />
+            element: <FoodRoute />
           }
         } else {
-          return {
-            path: category.CategoryCode,
-            element: <PizzaRoute />
+          if (category.ComboComponent) {
+            return {
+              path: category.CategoryCode,
+              element: <ComboRoute />
+            }
+          } else {
+            return {
+              path: category.CategoryCode,
+              element: <PizzaRoute />
+            }
           }
         }
       })

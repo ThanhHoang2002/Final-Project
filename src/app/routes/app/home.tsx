@@ -16,6 +16,10 @@ const HomeRoute = () => {
     dispatch(setHomeHeader())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const handleClickOrder = () => {
+    navigate('/order')
+    window.scrollTo(0, 0)
+  }
   return (
     <DefaultLayout>
       <div className='min-h-[200px]'>
@@ -37,7 +41,7 @@ const HomeRoute = () => {
       </div>
       <div className='w-full flex justify-center items-center mb-3'>
         <div className='max-w-[1120px] w-full h-[65px] tablet:px-[10px] py-[10px] px-[6px] '>
-          <Button onClick={() => navigate('/order')}>{t('See Complete Menu')}</Button>
+          <Button onClick={handleClickOrder}>{t('See Complete Menu')}</Button>
         </div>
       </div>
       <footer className='bg-[#000000e6] uppercase text-white h-20 text-xs flex items-center justify-center'>

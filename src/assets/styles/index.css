@@ -59,3 +59,9 @@
     display: none !important;
   }
 }
+.ant-skeleton.ant-skeleton-element {
+  width: 100%;
+}
+.ant-drawer .ant-drawer-body {
+  padding: 0;
+}

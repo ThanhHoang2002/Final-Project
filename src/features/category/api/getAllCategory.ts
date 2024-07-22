@@ -41,7 +41,7 @@ export const getAllCategory = async () => {
       PhotoLink: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Ghiền Gà-VIE_20240205152631ZY9.jpeg',
       PhotoLink_EN: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Ghiền Gà-ENG_20240205152631S7G.jpeg',
       orderby: '12',
-      ComboComponent: false,
+      ComboComponent: null,
       Default_Cate: false,
       HomepageMenu: true
     },
@@ -76,7 +76,7 @@ export const getAllCategory = async () => {
       PhotoLink: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Starter - Vie_20240206150234S1O.jpeg',
       PhotoLink_EN: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Starter - ENG_20240227130623YWG.jpeg',
       orderby: '16',
-      ComboComponent: false,
+      ComboComponent: null,
       Default_Cate: false,
       HomepageMenu: true
     },
@@ -87,18 +87,7 @@ export const getAllCategory = async () => {
       PhotoLink: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Drink - Vie_20240206151049ST8.jpeg',
       PhotoLink_EN: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Drink - ENG_20240206151049Q90.jpeg',
       orderby: '17',
-      ComboComponent: false,
-      Default_Cate: false,
-      HomepageMenu: true
-    },
-    {
-      CategoryCode: 'MENU49K',
-      CategoryName_VN: 'MENU 49K',
-      CategoryName_EN: 'MENU 49K',
-      PhotoLink: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Mobile_2024032518304032S.jpeg',
-      PhotoLink_EN: 'https://cdn.pizzahut.vn/images/WEB_V3/CATEGORIES_MenuTool/Mobile_20240325183045GMQ.jpeg',
-      orderby: '18',
-      ComboComponent: false,
+      ComboComponent: null,
       Default_Cate: false,
       HomepageMenu: true
     }

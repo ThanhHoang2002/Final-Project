@@ -19,7 +19,8 @@ import { autoComplete } from '../api/autoComplete'
 import iconLocationGray from '../../../assets/images/icons/icons8-location-24 gray.png'
 import { useNavigate } from 'react-router-dom'
 import { getGeometry } from '../api/getGeometry'
-import { getDistance } from '../api/getDistance'
+import { closeModal } from '../../../store/slices/ModalSlice'
+import { getDistanceMatrix } from '../api/getDistanceMatrix'
 interface ReceivingMethodProps {
   isShowClose?: boolean
 }
@@ -34,6 +35,7 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
   const [predictiondata, setPredictiondata] = useState<any[]>([])
   const typingTimeoutRef = useRef<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isOpenModal = useAppSelector((state) => state.modalState.isOpenModal)
   const isOpenStartOrdering = useAppSelector(
     (state) => state.receivingMethodState.address !== '' || state.receivingMethodState.selectedStore !== null
   )
@@ -62,16 +64,16 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
   }
   const getMinDistanceStore = async (item: any) => {
     const addressGeometry = await getGeometry(item.place_id)
-    let minStore = stores[0]
-    let minDistance = await getDistance(addressGeometry, minStore.local)
-    for (const store of stores) {
-      const distance = await getDistance(addressGeometry, store.local)
-      if (minDistance > distance) {
-        minDistance = distance
-        minStore = store
+    const destinations = stores.map((store) => store.local)
+    const matrixDistanse = await getDistanceMatrix(addressGeometry, destinations)
+    const minIndexStore = matrixDistanse.reduce((minIndex: number, current: any, index: number): number => {
+      if (current.distance.value < matrixDistanse[minIndex].distance.value) {
+        return index
+      } else {
+        return minIndex
       }
-    }
-    return minStore
+    }, 0)
+    return stores[minIndexStore]
   }
   const handleChosenAddress = async (item: any) => {
     setAddress(item.description)
@@ -89,14 +91,15 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
   const handleClickStartOrdering = () => {
     navigate('/order')
     window.scrollTo(0, 0)
+    dispatch(closeModal())
   }
 
   return (
-    <div className='h-auto grid grid-cols-2 gap-x-1 '>
+    <div className={`${isOpenModal ? 'w-[90%]' : 'w-full'} tablet:w-[450px] h-auto grid grid-cols-2 gap-x-1 relative`}>
       <div
         className={`${methodReceive === true ? 'h-[58px] bg-white text-[#ff0000] transform -translate-y-[3px] transition-transform' : 'bg-[#eaeaea] h-[55px] '} 
-        cursor-pointer rounded-t-md  flex justify-center items-center 
-        shadow-[10px_-50px_60px_-15px_rgba(0,0,0,0.3)]`}
+          cursor-pointer rounded-t-md  flex justify-center items-center 
+          shadow-[10px_-50px_60px_-15px_rgba(0,0,0,0.3)]`}
         onClick={() => handleChangedMethodReceive('delivery')}
       >
         <img className='h-[28px]' src={`${methodReceive === true ? delivery : bikergray}`} alt=':icon' />
@@ -110,7 +113,7 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
         <span className='font-bold pl-2 text-[14px]'>{t('Carryout')}</span>
       </div>
       <div
-        className='h-auto bg-white col-span-2 transform -translate-y-[4px] transition-transform rounded-b-md p-[10px]'
+        className='h-auto bg-white w-full col-span-2 transform -translate-y-[4px] transition-transform rounded-b-md p-[10px]'
         style={{ boxShadow: '0 4px 6px 0 rgba(0, 0, 0, 0.2)' }}
       >
         {methodReceive === true ? (
@@ -181,7 +184,10 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
           <Button onClick={handleClickStartOrdering}> {t('Start ordering')}</Button>
         </div>
       </div>
-      <button className={`${isShowClose ? 'absolute top-[-10px] right-[-15px]' : 'hidden'}`}>
+      <button
+        className={`${isShowClose ? 'absolute top-[-10px] right-[-15px]' : 'hidden'}`}
+        onClick={() => dispatch(closeModal())}
+      >
         <img className='w-[30px]' src={close} alt='close' />
       </button>
     </div>

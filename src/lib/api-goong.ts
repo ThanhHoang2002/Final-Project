@@ -5,7 +5,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
     config.headers.Accept = 'application/json'
   }
 
-  config.withCredentials = true
+  config.withCredentials = false
   return config
 }
 

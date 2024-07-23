@@ -1,3 +1,4 @@
+const env = import.meta.env
 export const paymentMethod = [
   {
     image: 'https://cdn.pizzahut.vn/images/Web_V3/Payment/cash.png',
@@ -20,3 +21,4 @@ export const paymentMethod = [
     name: 'Thanh toán bằng Vnpay'
   }
 ]
+export const BaseURLGoongAPI = env.VITE_GOONG_API

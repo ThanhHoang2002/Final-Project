@@ -1,5 +1,5 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios'
-
+import { BaseURLGoongAPI } from '../utils/constance'
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
     config.headers.Accept = 'application/json'
@@ -10,7 +10,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 }
 
 export const api_goong = Axios.create({
-  baseURL: 'https://rsapi.goong.io'
+  baseURL: BaseURLGoongAPI
 })
 
 api_goong.interceptors.request.use(authRequestInterceptor)

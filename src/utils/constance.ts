@@ -21,4 +21,4 @@ export const paymentMethod = [
     name: 'Thanh toán bằng Vnpay'
   }
 ]
-export const BaseURLGoongAPI = env.VITE_GOONG_API
+export const BaseURLGoongAPI = env.VITE_GOONG_MAPS_BASE_URL

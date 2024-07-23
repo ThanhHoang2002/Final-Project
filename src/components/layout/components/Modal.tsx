@@ -28,7 +28,7 @@ const Modal = (props: ModalProps) => {
   }, [element])
   return (
     <div
-      className={`${isOpenModal ? 'fixed h-screen  w-full top-0 z-30 flex justify-center items-center' : 'hidden'} `}
+      className={`${isOpenModal ? 'fixed h-screen  w-full top-0 z-[10000] flex justify-center items-center' : 'hidden'} `}
     >
       <div ref={refElement}>{element}</div>
     </div>

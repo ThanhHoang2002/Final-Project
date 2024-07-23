@@ -1,12 +1,18 @@
 import { PizzaInOrder } from '../../../types'
 import { formatCurrency } from '../../../utils/fomat'
 import mutiple from '../../../assets/images/icons/multiply.png'
+import { useAppDispatch } from '../../../hooks/reduxHooks'
+import { openModal } from '../../../store/slices/ModalSlice'
+import DeleteItem from './DeleteItem'
+import ChangeQuantityCart from './ChangeQuantityCart'
 
 interface PizzaInCartProps {
   pizza: PizzaInOrder
+  index: number
 }
 const PizzaInCart = (props: PizzaInCartProps) => {
-  const { pizza } = props
+  const { pizza, index } = props
+  const dispatch = useAppDispatch()
   return (
     <div className='relative py-2 px-10 cursor-pointer hover:bg-slate-100 delay-100 text-sm'>
       <div className='flex justify-between font-bold pb-1'>
@@ -19,13 +25,13 @@ const PizzaInCart = (props: PizzaInCartProps) => {
       </div>
       <button
         className='absolute h-6 w-6 text-center top-[30%] font-bold left-2 rounded-[4px]  text-[#0A8020] bg-[rgb(245,247,249)]'
-        // onClick={handleChangeQuantity}
+        onClick={() => dispatch(openModal(<ChangeQuantityCart pizzaInOrder={pizza} index={index} />))}
       >
         {pizza.quantity}x
       </button>
       <div
         className='absolute top-1 right-2 hover:bg-slate-200 rounded-full delay-100'
-        // onClick={handleDeleteItem}
+        onClick={() => dispatch(openModal(<DeleteItem pizzaInOrder={pizza} index={index} />))}
       >
         <img width='24' height='24' src={mutiple} alt='multiply' />
       </div>

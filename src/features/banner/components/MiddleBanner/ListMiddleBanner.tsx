@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { fetchMiddleBanner } from '../../../../api/backend/bannerApi'
 import { Banner } from '../../../../types'
 import MiddleBanner from './MiddleBanner'
+import { fetchMiddleBanner } from '../../api/bannerApi'
 
 const ListMiddleBanner = () => {
   const [banner, setBanner] = useState<Banner[]>([])

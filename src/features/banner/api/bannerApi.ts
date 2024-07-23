@@ -1,4 +1,5 @@
-import { Banner } from '../../types'
+import { Banner } from '../../../types'
+
 const dataRaw: Banner[] = [
   {
     BANNER_POSITION_ID: '1',

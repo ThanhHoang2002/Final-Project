@@ -30,8 +30,15 @@ export const HeaderSlice = createSlice({
       state.isOpenProfile = true
       state.isOpenTracking = false
       state.isOpenBack = false
+    },
+    setPaymentHeader: (state) => {
+      state.isOpenAddress = true
+      state.isOpenRing = false
+      state.isOpenProfile = false
+      state.isOpenTracking = false
+      state.isOpenBack = true
     }
   }
 })
-export const { setHomeHeader, setOrderHeader } = HeaderSlice.actions
+export const { setHomeHeader, setOrderHeader, setPaymentHeader } = HeaderSlice.actions
 export default HeaderSlice.reducer

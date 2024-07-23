@@ -16,7 +16,7 @@ const OrderRoute = () => {
     if (location.pathname === '/order') {
       categories.map((category) => {
         if (category.Default_Cate) {
-          return navigate('/order/' + category.CategoryCode)
+          return navigate('/order/' + category.CategoryCode.toLowerCase())
         }
       })
     }

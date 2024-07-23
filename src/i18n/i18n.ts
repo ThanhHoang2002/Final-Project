@@ -39,7 +39,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    ns: ['header'],
+    ns: ['header', 'receivingMethod', 'home', 'order'],
     fallbackLng: 'vi',
     debug: true,
     detection: {

@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
 import { formatCurrency } from '../../../utils/fomat'
 import information from '../../../assets/images/icons/info--v1.png'
 import checked from '../../../assets/images/icons/checked--v1.png'
@@ -7,15 +7,28 @@ import ComboInCart from '../../../features/cart/components/ComboInCart'
 import FoodInCart from '../../../features/cart/components/FoodInCart'
 import { useTranslation } from 'react-i18next'
 import Back from '../../ui/Icon/Back'
+import { useNavigate } from 'react-router-dom'
+import ReceivingMethod from '../../../features/receivingMethod/components'
+import { openModal } from '../../../store/slices/ModalSlice'
 interface CartProps {
   isOpenBack?: boolean
   onClick?: () => void
 }
 const Cart = (props: CartProps) => {
   const order = useAppSelector((state) => state.OrderState)
+  const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const { t } = useTranslation(['order', 'header'])
   const { isOpenBack, onClick } = props
-
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const handleToPayment = () => {
+    if (order.pizzaInOrders.length + order.foodInOrders.length + order.comboInOrders.length === 0) return
+    else if (!selectedStore) {
+      dispatch(openModal(<ReceivingMethod />))
+    } else {
+      navigate('/payment')
+    }
+  }
   return (
     <div className='shadow-sm h-full'>
       <div className='relative w-full h-[64px] text-center font-medium text-xl border-b flex items-center justify-center'>
@@ -41,13 +54,13 @@ const Cart = (props: CartProps) => {
         ) : (
           <div>
             {order.pizzaInOrders.map((item, index) => (
-              <PizzaInCart key={index} pizza={item} />
+              <PizzaInCart key={index} pizza={item} index={index} />
             ))}
             {order.foodInOrders.map((item, index) => (
-              <FoodInCart key={index} food={item} />
+              <FoodInCart key={index} food={item} index={index} />
             ))}
             {order.comboInOrders.map((item, index) => (
-              <ComboInCart key={index} combo={item} />
+              <ComboInCart key={index} combo={item} index={index} />
             ))}
           </div>
         )}
@@ -118,8 +131,13 @@ const Cart = (props: CartProps) => {
       </div>
       <div className='w-full h-[56.5px] p-[10px]'>
         <button
-          className='bg-[#0A8020] text-white rounded-[4px] font-bold px-4 h-full w-full flex items-center justify-between text-end hover:shadow-xl'
-          // onClick={handleToPayment}
+          className={`${
+            order.pizzaInOrders.length + order.foodInOrders.length + order.comboInOrders.length === 0 || !selectedStore
+              ? 'bg-[rgb(245,247,249)] text-[rgb(107,110,121)]'
+              : 'bg-[#0A8020] text-white hover:shadow-xl'
+          }
+           rounded-[4px] font-bold px-4 h-full w-full flex items-center justify-between text-end `}
+          onClick={handleToPayment}
         >
           <div className=' capitalize'>
             <p>

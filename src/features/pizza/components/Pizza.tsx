@@ -3,9 +3,11 @@ import { ECrust, Pizza as PizzaEntity, PizzaType } from '../../../types'
 import { formatCurrency } from '../../../utils/fomat'
 import { Select, Skeleton } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import { AddPizzaToOrder } from '../../../store/slices/OrderSlice'
 import { toast } from 'react-toastify'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
+import { openModal } from '../../../store/slices/ModalSlice'
+import ReceivingMethod from '../../receivingMethod/components'
 interface PizzaProps {
   pizza: PizzaType
   isPending: boolean
@@ -16,13 +18,18 @@ const Pizza = (props: PizzaProps) => {
   const [base, setBase] = useState(ECrust[Object.keys(ECrust)[0] as keyof typeof ECrust])
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
   const { t } = useTranslation('order')
+  const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
+  const dispatch = useAppDispatch()
   const handleImageLoad = () => {
     setIsLoadingImage(() => false)
   }
-  const dispatch = useDispatch()
   const handleAddPizza = () => {
-    dispatch(AddPizzaToOrder({ chosenPizza, base }))
-    toast.success(t('Add to cart successfully'))
+    if (!selectedStore) {
+      dispatch(openModal(<ReceivingMethod />))
+    } else {
+      dispatch(AddPizzaToOrder({ chosenPizza, base }))
+      toast.success(t('Add to cart successfully'))
+    }
   }
   return (
     <>

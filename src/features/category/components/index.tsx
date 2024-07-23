@@ -25,10 +25,12 @@ const Category = () => {
   }
 
   useEffect(() => {
-    const activeCategory = categories.find((category) => location.pathname === '/order/' + category.CategoryCode)
+    const activeCategory = categories.find(
+      (category) => location.pathname === '/order/' + category.CategoryCode.toLowerCase()
+    )
     if (activeCategory && scrollContainerRef.current) {
       const activeLink = scrollContainerRef.current.querySelector(
-        `a[href='/order/${activeCategory.CategoryCode}']`
+        `a[href='/order/${activeCategory.CategoryCode.toLowerCase()}']`
       ) as HTMLElement
       if (activeLink) {
         scrollContainerRef.current.scrollTo({
@@ -57,7 +59,7 @@ const Category = () => {
         {categories.map((category) => {
           return (
             <NavLink
-              to={'/order/' + category.CategoryCode}
+              to={'/order/' + category.CategoryCode.toLowerCase()}
               key={category.CategoryCode}
               className={({ isActive }) =>
                 `text-sm inline-flex justify-center items-center rounded-lg shrink-0 mx-[3px] px-3 py-[6px] 

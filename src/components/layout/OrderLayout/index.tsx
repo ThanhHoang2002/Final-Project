@@ -68,7 +68,15 @@ const OrderLayout = ({ children }: OrderLayoutProps) => {
                 </div>
               </button>
             </div>
-            <Drawer placement='bottom' closable={false} onClose={onClose} open={open} key='bottom' height={''}>
+            <Drawer
+              placement='bottom'
+              closable={false}
+              onClose={onClose}
+              open={open}
+              key='bottom'
+              height={''}
+              style={{ filter: ` ${isOpenModal ? 'brightness(50%)' : ''}` }}
+            >
               <div className='h-screen'>
                 <Cart isOpenBack={true} onClick={onClose} />
               </div>

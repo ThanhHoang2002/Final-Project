@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-constant-condition */
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
 import { Store } from '../../../types'
 import { chooseStore, setChosenAddress, setReceivingMethod } from '../../../store/slices/ReceivingMethodSlice'
@@ -21,6 +21,8 @@ import { useNavigate } from 'react-router-dom'
 import { getGeometry } from '../api/getGeometry'
 import { closeModal } from '../../../store/slices/ModalSlice'
 import { getDistanceMatrix } from '../api/getDistanceMatrix'
+import { useQuery } from '@tanstack/react-query'
+import Loading from '../../../components/ui/Loading/AppLoading'
 interface ReceivingMethodProps {
   isShowClose?: boolean
 }
@@ -30,7 +32,7 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
   const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const [address, setAddress] = useState<string>(useAppSelector((state) => state.receivingMethodState.address))
   const dispatch = useAppDispatch()
-  const [stores, setStores] = useState<Store[]>([])
+
   const { t } = useTranslation('receivingMethod')
   const [predictiondata, setPredictiondata] = useState<any[]>([])
   const typingTimeoutRef = useRef<number | null>(null)
@@ -40,13 +42,14 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
     (state) => state.receivingMethodState.address !== '' || state.receivingMethodState.selectedStore !== null
   )
   const navigate = useNavigate()
-  useEffect(() => {
-    const fetchStore = async () => {
-      const data = await getAllStore()
-      setStores(data)
-    }
-    fetchStore()
-  }, [])
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['getAllStore'],
+    queryFn: getAllStore,
+    staleTime: Infinity
+  })
+  const stores = data as Store[]
+  if (isFetching) return <Loading />
   const handleChangedMethodReceive = (method: 'delivery' | 'pickup') => {
     setAddress('')
     dispatch(setReceivingMethod(method))

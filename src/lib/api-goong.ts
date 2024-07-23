@@ -10,7 +10,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 }
 
 export const api_goong = Axios.create({
-  baseURL: import.meta.env.VITE_GOONG_MAPS_BASE_URL
+  baseURL: 'https://rsapi.goong.io'
 })
 
 api_goong.interceptors.request.use(authRequestInterceptor)

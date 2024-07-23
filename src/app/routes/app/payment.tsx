@@ -25,6 +25,7 @@ const PaymentRoute = () => {
       navigate('/order')
     }
   }, [])
+  console.log('order', note)
 
   const handleChangePaymentMethod = (index: number) => {
     if (index > 0) {

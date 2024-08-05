@@ -11,7 +11,20 @@ export type Banner = {
   BANNER_DIRECTIONAL_LINK: string | null
   OUTSIDE_LINK: string | null
 }
-
+export type Strength = {
+  id: number
+  img: string
+  title: string
+  title_en: string
+  des: string
+  des_en: string
+}
+export type FeedBack = {
+  id: number
+  img: string
+  name: string
+  feedback: string
+}
 export type Category = {
   CategoryCode: string
   CategoryName_VN: string
@@ -33,8 +46,8 @@ export type Store = {
 
 export enum ELanguage {
   VI = 'vi',
-  EN = 'en',
-  KO = 'ko'
+  EN = 'en'
+  // KO = 'ko'
 }
 
 export type PizzaType = {
@@ -133,13 +146,20 @@ export type ComboInOrder = {
   combo: Combo
 }
 export type Order = {
+  order_id?: number
   note: string
   paymentMethod: string
+  dayOrder: Date
+  address: string
+  receiveMethod: string
   state: string
+  store: Store
+  name: string
+  phone: string
   client: Client | null
   staff: Staff | null
   comboInOrders: ComboInOrder[]
   pizzaInOrders: PizzaInOrder[]
   foodInOrders: FoodInOrder[]
-  total: number
+  total?: number
 }

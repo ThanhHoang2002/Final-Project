@@ -1,4 +1,4 @@
-import FoodList from '../../../../features/food/components/FoodList'
+import FoodList from '../../../../../features/food/components/FoodList'
 
 const FoodRoute = () => {
   return (

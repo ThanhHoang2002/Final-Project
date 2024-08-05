@@ -19,10 +19,13 @@ import { autoComplete } from '../api/autoComplete'
 import iconLocationGray from '../../../assets/images/icons/icons8-location-24 gray.png'
 import { useNavigate } from 'react-router-dom'
 import { getGeometry } from '../api/getGeometry'
-import { closeModal } from '../../../store/slices/ModalSlice'
+import { closeModal, openModal } from '../../../store/slices/ModalSlice'
 import { getDistanceMatrix } from '../api/getDistanceMatrix'
 import { useQuery } from '@tanstack/react-query'
-import Loading from '../../../components/ui/Loading/AppLoading'
+import SkeletonInput from 'antd/es/skeleton/Input'
+import NotFoundComponent from '../../../components/error/notfoundComponent'
+import Noti from '../../../components/ui/Noti'
+import { getDetailByGeometry } from '../api/getDetailByGeometry'
 interface ReceivingMethodProps {
   isShowClose?: boolean
 }
@@ -43,16 +46,48 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
   )
   const navigate = useNavigate()
 
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isError } = useQuery({
     queryKey: ['getAllStore'],
     queryFn: getAllStore,
     staleTime: Infinity
   })
   const stores = data as Store[]
-  if (isFetching) return <Loading />
   const handleChangedMethodReceive = (method: 'delivery' | 'pickup') => {
     setAddress('')
     dispatch(setReceivingMethod(method))
+  }
+  const handleGetBrowserLocation = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latitude = position.coords.latitude
+          const longitude = position.coords.longitude
+          const addressGeometry = latitude + ',' + longitude
+          const destinations = stores.map((store) => store.local)
+          const detailLocation = await getDetailByGeometry(addressGeometry)
+          setAddress(detailLocation)
+          dispatch(setChosenAddress(detailLocation))
+          const matrixDistanse = await getDistanceMatrix(addressGeometry, destinations)
+          const minIndexStore = matrixDistanse.reduce((minIndex: number, current: any, index: number): number => {
+            if (current.distance.value < matrixDistanse[minIndex].distance.value) {
+              return index
+            } else {
+              return minIndex
+            }
+          }, 0)
+          dispatch(chooseStore(stores[minIndexStore]))
+        },
+        () => {
+          dispatch(
+            openModal(
+              <Noti text='Vui lòng chia sẻ quyền truy cập vị trí trên trình duyệt của bạn để cải thiện độ chính xác vị trí'></Noti>
+            )
+          )
+        }
+      )
+    } else {
+      dispatch(openModal(<Noti text='Geolocation is not supported by this browser'></Noti>))
+    }
   }
   const handleAutocomplete = (value: string) => {
     setAddress(value)
@@ -96,7 +131,8 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
     window.scrollTo(0, 0)
     dispatch(closeModal())
   }
-
+  if (isFetching) return <SkeletonInput active style={{ height: '150px', width: '100%' }} />
+  if (isError) return <NotFoundComponent />
   return (
     <div className={`${isOpenModal ? 'w-[90%]' : 'w-full'} tablet:w-[450px] h-auto grid grid-cols-2 gap-x-1 relative`}>
       <div
@@ -120,41 +156,49 @@ const ReceivingMethod = (props: ReceivingMethodProps) => {
         style={{ boxShadow: '0 4px 6px 0 rgba(0, 0, 0, 0.2)' }}
       >
         {methodReceive === true ? (
-          <div className=' flex justify-start'>
-            <div className='w-full'>
-              <input
-                ref={inputRef}
-                className='w-full h-full border-[#0a8020] border-2 p-[10px] rounded-md text-[0.875rem] focus:outline-none font-medium'
-                type='text'
-                placeholder='Vui lòng cho chúng tôi biết địa chỉ của bạn!'
-                value={address}
-                onChange={(e) => handleAutocomplete(e.target.value)}
-              />
-              <div className='absolute w-[85%] bg-white tablet:w-[87%]'>
-                {predictiondata?.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={`bg-white w-full h-[60px] py-[4px] pl-4 flex justify-start border-b-2 border-x-2 b transition-colors duration-75 ease-in-out hover:brightness-95`}
-                      onClick={() => handleChosenAddress(item)}
-                    >
-                      <div className='flex items-center justify-center'>
-                        <img className='h-[15px]' src={iconLocationGray} alt=':icon' />
+          <div>
+            <div className=' flex justify-start'>
+              <div className='w-full'>
+                <input
+                  ref={inputRef}
+                  className='w-full h-full border-[#0a8020] border-2 p-[10px] rounded-md text-[0.875rem] focus:outline-none font-medium'
+                  type='text'
+                  placeholder={t('Please let us know your address!')}
+                  value={address}
+                  onChange={(e) => handleAutocomplete(e.target.value)}
+                />
+                <div className='absolute w-[85%] bg-white tablet:w-[87%]'>
+                  {predictiondata?.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={`bg-white w-full h-[60px] py-[4px] pl-4 flex justify-start border-b-2 border-x-2 b transition-colors duration-75 ease-in-out hover:brightness-95`}
+                        onClick={() => handleChosenAddress(item)}
+                      >
+                        <div className='flex items-center justify-center'>
+                          <img className='h-[15px]' src={iconLocationGray} alt=':icon' />
+                        </div>
+                        <div className='pl-3 w-[93%] flex flex-col justify-center'>
+                          <div className='font-bold text-sm'>{item.structured_formatting.main_text}</div>
+                          <div className='text-sm truncate '>{item.structured_formatting.secondary_text}</div>
+                        </div>
                       </div>
-                      <div className='pl-3 w-[93%] flex flex-col justify-center'>
-                        <div className='font-bold text-sm'>{item.structured_formatting.main_text}</div>
-                        <div className='text-sm truncate '>{item.structured_formatting.secondary_text}</div>
-                      </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
+              </div>
+              <div
+                className={`w-[40px] h-[40px] text-[#0A8020] flex justify-center items-center cursor-pointer ${address === '' ? 'hidden' : ''}`}
+                onClick={handleDeletedAddress}
+              >
+                <img className='h-[20px] w-[20px] cursor-pointer' src={cancel} alt=':icon' />
               </div>
             </div>
-            <div
-              className={`w-[40px] h-[40px] text-[#0A8020] flex justify-center items-center cursor-pointer ${address === '' ? 'hidden' : ''}`}
-              onClick={handleDeletedAddress}
-            >
-              <img className='h-[20px] w-[20px] cursor-pointer' src={cancel} alt=':icon' />
+            <div className='flex pt-2'>
+              <img src={location} alt='location' />
+              <button className='pl-1 text-sm underline text-[rgb(76,146,227)]' onClick={handleGetBrowserLocation}>
+                {t('Use my current location')}
+              </button>
             </div>
           </div>
         ) : (

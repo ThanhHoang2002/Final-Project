@@ -3,11 +3,12 @@ import { Combo as ComboEntity } from '../../../types'
 import { useTranslation } from 'react-i18next'
 import { Skeleton } from 'antd'
 import { formatCurrency } from '../../../utils/fomat'
-import { useAppDispatch } from '../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
 import { closeModal, openModal } from '../../../store/slices/ModalSlice'
 import ComboDetail from './_id'
 import { AddComboToOrder } from '../../../store/slices/OrderSlice'
 import { toast } from 'react-toastify'
+import ReceivingMethod from '../../receivingMethod/components'
 interface ComboProps {
   combo: ComboEntity
   isPending: boolean
@@ -20,10 +21,15 @@ const Combo = (props: ComboProps) => {
   const handleImageLoad = () => {
     setIsLoadingImage(() => false)
   }
+  const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const handleAddCombo = () => {
-    dispatch(AddComboToOrder(combo))
-    toast.success(t('Add to cart successfully'))
-    dispatch(closeModal())
+    if (!selectedStore) {
+      dispatch(openModal(<ReceivingMethod />))
+    } else {
+      dispatch(AddComboToOrder(combo))
+      toast.success(t('Add to cart successfully'))
+      dispatch(closeModal())
+    }
   }
   return (
     <>

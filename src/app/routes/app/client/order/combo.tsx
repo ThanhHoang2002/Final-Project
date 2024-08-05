@@ -1,4 +1,4 @@
-import ComboList from '../../../../features/combo/components/ComboList'
+import ComboList from '../../../../../features/combo/components/ComboList'
 
 const ComboRoute = () => {
   return (

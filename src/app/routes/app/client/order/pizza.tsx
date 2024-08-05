@@ -1,4 +1,4 @@
-import PizzaList from '../../../../features/pizza/components/PizzaList'
+import PizzaList from '../../../../../features/pizza/components/PizzaList'
 
 const PizzaRoute = () => {
   return (

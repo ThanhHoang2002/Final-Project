@@ -1,6 +1,7 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios'
 import { BaseURLGoongAPI } from '../utils/constance'
-function authRequestInterceptor(config: InternalAxiosRequestConfig) {
+
+function goongRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
     config.headers.Accept = 'application/json'
   }
@@ -8,12 +9,11 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   config.withCredentials = false
   return config
 }
-
 export const api_goong = Axios.create({
   baseURL: BaseURLGoongAPI
 })
 
-api_goong.interceptors.request.use(authRequestInterceptor)
+api_goong.interceptors.request.use(goongRequestInterceptor)
 api_goong.interceptors.response.use(
   (response) => {
     return response

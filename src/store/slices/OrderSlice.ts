@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Order, Pizza } from '../../types'
-
-const initialState: Order = {
+import { Client, ComboInOrder, FoodInOrder, Pizza, PizzaInOrder, Staff } from '../../types'
+export interface OrderState {
+  note: string
+  paymentMethod: string
+  state: string
+  client: Client | null
+  staff: Staff | null
+  comboInOrders: ComboInOrder[]
+  pizzaInOrders: PizzaInOrder[]
+  foodInOrders: FoodInOrder[]
+  total: number
+}
+const initialState: OrderState = {
   note: '',
   paymentMethod: 'Cash',
   state: 'Waiting',
@@ -105,9 +115,12 @@ const orderSlice = createSlice({
         default:
           break
       }
+    },
+    resetOrder: () => {
+      return initialState
     }
   }
 })
-export const { AddPizzaToOrder, AddFoodToOrder, AddComboToOrder, deleteItemInOrder, changeQuantity } =
+export const { AddPizzaToOrder, AddFoodToOrder, AddComboToOrder, deleteItemInOrder, changeQuantity, resetOrder } =
   orderSlice.actions
 export default orderSlice.reducer

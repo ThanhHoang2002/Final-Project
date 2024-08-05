@@ -24,8 +24,11 @@ const ReceivingMethodSlice = createSlice({
     },
     chooseStore: (state, actions) => {
       state.selectedStore = actions.payload
+    },
+    resetReceivingMethod: () => {
+      return initialState
     }
   }
 })
-export const { setReceivingMethod, setChosenAddress, chooseStore } = ReceivingMethodSlice.actions
+export const { setReceivingMethod, setChosenAddress, chooseStore, resetReceivingMethod } = ReceivingMethodSlice.actions
 export default ReceivingMethodSlice.reducer

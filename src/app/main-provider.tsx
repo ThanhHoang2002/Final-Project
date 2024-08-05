@@ -8,6 +8,7 @@ import { MainErrorFallback } from '../components/error/main'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 type AppProviderProps = {
   children: React.ReactNode
@@ -21,7 +22,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           <ErrorBoundary FallbackComponent={MainErrorFallback}>
             <QueryClientProvider client={queryClient}>
               {children}
-              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+              {import.meta.env.DEV && <ReactQueryDevtools />}
             </QueryClientProvider>
           </ErrorBoundary>
         </Suspense>

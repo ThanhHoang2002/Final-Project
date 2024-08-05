@@ -1,0 +1,19 @@
+{
+  "SECURE PAYMENT": "보안 결제",
+  "View your basket detail": "장바구니 세부정보 보기",
+  "Delivery Address": "배달 주소",
+  "Pick up Address": "픽업 주소",
+  "Change": "변경",
+  "Who's the order for": "누구를 위한 명령인가",
+  "Full name": "이름",
+  "Phone or mobile": "전화 또는 모바일",
+  "Payment method": "결제수단",
+  "Pay by Cash": "현금으로 지불",
+  "Pay by": "로 결제",
+  "Place Order": "주문하기",
+  "Name is required": "이름은 필수입니다",
+  "Phone is required": "전화번호는 필수입니다",
+  "Note": "참고",
+  "Phone number is invalid": "전화번호가 유효하지 않습니다",
+  "Payment method is invalid": "결제수단이 유효하지 않습니다"
+}

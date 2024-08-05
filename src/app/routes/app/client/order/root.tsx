@@ -1,10 +1,10 @@
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/reduxHooks'
 import { Suspense, useEffect } from 'react'
-import { setOrderHeader } from '../../../../store/slices/HeaderSlice'
-import OrderLayout from '../../../../components/layout/OrderLayout'
+import { setOrderHeader } from '../../../../../store/slices/HeaderSlice'
+import OrderLayout from '../../../../../components/layout/OrderLayout'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import Category from '../../../../features/category/components'
-import ComponentLoading from '../../../../components/ui/Loading/ComponentLoading'
+import Category from '../../../../../features/category/components'
+import ComponentLoading from '../../../../../components/ui/Loading/ComponentLoading'
 
 const OrderRoute = () => {
   const dispatch = useAppDispatch()

@@ -11,6 +11,7 @@ import { ELanguage } from '../../../types'
 import { Link, useNavigate } from 'react-router-dom'
 import { openModal } from '../../../store/slices/ModalSlice'
 import ReceivingMethod from '../../../features/receivingMethod/components'
+import LoginForm from '../../../features/auth-client/components/login-form'
 const Header = () => {
   const { t, i18n } = useTranslation(['header'])
   const { isOpenAddress, isOpenBack, isOpenProfile, isOpenRing, isOpenTracking } = useAppSelector(
@@ -66,12 +67,14 @@ const Header = () => {
         <div className='flex items-center h-full'>
           <button
             className={`${isOpenProfile || 'hidden'} flex font-bold text-sm  h-full items-center px-2 hover:bg-[rgba(10,128,32,0.04)]`}
+            onClick={() => dispatch(openModal(<LoginForm />))}
           >
             <Profile />
             <p className='hidden tablet:inline-block'>{t('account')}</p>
           </button>
           <button
             className={`${isOpenTracking || 'hidden'} flex font-bold text-sm tablet:border-l tablet:border-l-[#e4e4e4] h-full items-center px-2 hover:bg-[rgba(10,128,32,0.04)]`}
+            onClick={() => navigate('/tracking')}
           >
             <Tracking />
             <p className='hidden tablet:inline-block capitalize'>{t('track order')}</p>

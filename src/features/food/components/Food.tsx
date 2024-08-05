@@ -4,8 +4,10 @@ import { formatCurrency } from '../../../utils/fomat'
 import { useState } from 'react'
 import { Skeleton } from 'antd'
 import { AddFoodToOrder } from '../../../store/slices/OrderSlice'
-import { useAppDispatch } from '../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
 import { toast } from 'react-toastify'
+import { openModal } from '../../../store/slices/ModalSlice'
+import ReceivingMethod from '../../receivingMethod/components'
 interface FoodProps {
   food: FoodEntity
   isPending: boolean
@@ -13,14 +15,19 @@ interface FoodProps {
 const Food = (props: FoodProps) => {
   const { food, isPending } = props
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
+  const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const { t } = useTranslation('order')
   const dispatch = useAppDispatch()
   const handleImageLoad = () => {
     setIsLoadingImage(() => false)
   }
   const handleAddFood = () => {
-    dispatch(AddFoodToOrder(food))
-    toast.success(t('Add to cart successfully'))
+    if (!selectedStore) {
+      dispatch(openModal(<ReceivingMethod />))
+    } else {
+      dispatch(AddFoodToOrder(food))
+      toast.success(t('Add to cart successfully'))
+    }
   }
   return (
     <>

@@ -59,7 +59,7 @@ const Category = () => {
         {categories.map((category) => {
           return (
             <NavLink
-              to={'/order/' + category.CategoryCode.toLowerCase()}
+              to={category.CategoryCode.toLowerCase()}
               key={category.CategoryCode}
               className={({ isActive }) =>
                 `text-sm inline-flex justify-center items-center rounded-lg shrink-0 mx-[3px] px-3 py-[6px] 

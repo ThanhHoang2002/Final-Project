@@ -10,23 +10,58 @@ import Back from '../../ui/Icon/Back'
 import { useNavigate } from 'react-router-dom'
 import ReceivingMethod from '../../../features/receivingMethod/components'
 import { openModal } from '../../../store/slices/ModalSlice'
+import Noti from '../../ui/Noti'
+import { Order } from '../../../types'
+import { postOrder } from '../../../features/payment/api/postOrder'
+import { resetOrder } from '../../../store/slices/OrderSlice'
 interface CartProps {
   isOpenBack?: boolean
+  type: 'client' | 'staff'
   onClick?: () => void
 }
 const Cart = (props: CartProps) => {
   const order = useAppSelector((state) => state.OrderState)
   const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const { t } = useTranslation(['order', 'header'])
-  const { isOpenBack, onClick } = props
+  const { isOpenBack, onClick, type } = props
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const handleToPayment = () => {
     if (order.pizzaInOrders.length + order.foodInOrders.length + order.comboInOrders.length === 0) return
-    else if (!selectedStore) {
-      dispatch(openModal(<ReceivingMethod />))
+    else if (type === 'client') {
+      if (!selectedStore) {
+        dispatch(openModal(<ReceivingMethod />))
+      } else {
+        navigate('/payment')
+      }
     } else {
-      navigate('/payment')
+      const user = JSON.parse(localStorage.getItem('user') as string)
+      const orderInput: Order = {
+        note: '',
+        paymentMethod: 'cash',
+        dayOrder: new Date(),
+        store: user.store,
+        address: '',
+        receiveMethod: 'directly',
+        state: 'Chờ xác nhận',
+        name: '',
+        phone: '',
+        client: null,
+        staff: user,
+        comboInOrders: order.comboInOrders,
+        pizzaInOrders: order.pizzaInOrders,
+        foodInOrders: order.foodInOrders
+      }
+
+      const response = postOrder(orderInput)
+      response
+        .then(() => {
+          dispatch(openModal(<Noti text={'Đặt hàng thành công'} />))
+          dispatch(resetOrder())
+        })
+        .catch(() => {
+          dispatch(openModal(<Noti text={'Đặt hàng thất bại'} />))
+        })
     }
   }
   return (
@@ -68,7 +103,7 @@ const Cart = (props: CartProps) => {
       <div className='w-full h-[46px] p-[5px]'>
         <button
           className='uppercase w-full h-full border border-[#0A8020] rounded-[4px] text-[#0A8020] px-[15px] py-[5px] bg-white hover:bg-[rgba(10,128,32,0.04)] duration-300'
-          // onClick={() => handleShowInformation('Hiện tại bạn không có mã giảm giá khả dụng')}
+          onClick={() => dispatch(openModal(<Noti text='Hiện tại bạn không có mã giảm giá khả dụng' />))}
         >
           {t('Use offers to get discounts')}
         </button>
@@ -81,11 +116,13 @@ const Cart = (props: CartProps) => {
         <div className='flex justify-between'>
           <div
             className='flex justify-between w-[50%] cursor-pointer'
-            // onClick={() =>
-            //   handleShowInformation(
-            //     'Điều khoản và điều kiện áp dụng Giảm giá Thành Viên được quy định theo Chương Trình Khách Hàng thân thiết của Pizzeria Việt Nam.'
-            //   )
-            // }
+            onClick={() =>
+              dispatch(
+                openModal(
+                  <Noti text='Điều khoản và điều kiện áp dụng Giảm giá Thành Viên được quy định theo Chương Trình Khách Hàng thân thiết của Pizzeria Việt Nam.' />
+                )
+              )
+            }
           >
             <div className='font-medium '>{t('Member discount')}</div>
             <div className='h-[24px] w-[24px]'>
@@ -97,11 +134,13 @@ const Cart = (props: CartProps) => {
         <div className='flex justify-between'>
           <div
             className='flex justify-between w-[50%] cursor-pointer'
-            // onClick={() =>
-            //   handleShowInformation(
-            //     'Chi tiết về điều khoản và điều kiện áp dụng được quy định theo các chương trình khuyến mại của Pizzeria tại từng thời điểm cụ thể.'
-            //   )
-            // }
+            onClick={() =>
+              dispatch(
+                openModal(
+                  <Noti text='Chi tiết về điều khoản và điều kiện áp dụng được quy định theo các chương trình khuyến mại của Pizzeria tại từng thời điểm cụ thể.' />
+                )
+              )
+            }
           >
             <div className='font-medium '>{t('Promotion discount')}</div>
             <div className='h-[24px] w-[24px]'>
@@ -113,9 +152,11 @@ const Cart = (props: CartProps) => {
         <div className='flex justify-between'>
           <div
             className='flex justify-between w-[50%] cursor-pointer'
-            // onClick={() =>
-            //   handleShowInformation('Phí giao hàng 22.000đ cho các sản phẩm combo hoặc chương trình khuyến mãi.')
-            // }
+            onClick={() =>
+              dispatch(
+                openModal(<Noti text='Phí giao hàng 22.000đ cho các sản phẩm combo hoặc chương trình khuyến mãi.' />)
+              )
+            }
           >
             <div className='font-medium '>{t('Shipping fee')}</div>
             <div className='h-[24px] w-[24px]'>
@@ -132,7 +173,9 @@ const Cart = (props: CartProps) => {
       <div className='w-full h-[56.5px] p-[10px]'>
         <button
           className={`${
-            order.pizzaInOrders.length + order.foodInOrders.length + order.comboInOrders.length === 0 || !selectedStore
+            (order.pizzaInOrders.length + order.foodInOrders.length + order.comboInOrders.length === 0 ||
+              !selectedStore) &&
+            type === 'client'
               ? 'bg-[rgb(245,247,249)] text-[rgb(107,110,121)]'
               : 'bg-[#0A8020] text-white hover:shadow-xl'
           }

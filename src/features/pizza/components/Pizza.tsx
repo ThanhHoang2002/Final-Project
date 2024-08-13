@@ -11,9 +11,10 @@ import ReceivingMethod from '../../receivingMethod/components'
 interface PizzaProps {
   pizza: PizzaType
   isPending: boolean
+  type: 'client' | 'staff'
 }
 const Pizza = (props: PizzaProps) => {
-  const { pizza, isPending } = props
+  const { pizza, isPending, type } = props
   const [chosenPizza, setChosenPizza] = useState<PizzaEntity>(pizza.pizzas[0])
   const [base, setBase] = useState(ECrust[Object.keys(ECrust)[0] as keyof typeof ECrust])
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
@@ -24,11 +25,16 @@ const Pizza = (props: PizzaProps) => {
     setIsLoadingImage(() => false)
   }
   const handleAddPizza = () => {
-    if (!selectedStore) {
-      dispatch(openModal(<ReceivingMethod />))
-    } else {
+    if (type === 'staff') {
       dispatch(AddPizzaToOrder({ chosenPizza, base }))
       toast.success(t('Add to cart successfully'))
+    } else {
+      if (!selectedStore) {
+        dispatch(openModal(<ReceivingMethod />))
+      } else {
+        dispatch(AddPizzaToOrder({ chosenPizza, base }))
+        toast.success(t('Add to cart successfully'))
+      }
     }
   }
   return (

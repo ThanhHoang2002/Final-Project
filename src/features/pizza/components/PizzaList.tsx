@@ -3,8 +3,11 @@ import { PizzaType } from '../../../types'
 import Pizza from './Pizza'
 import { getAllPizza } from '../api/getAllPizza'
 import ComponentLoading from '../../../components/ui/Loading/ComponentLoading'
-
-const PizzaList = () => {
+interface PizzaListProps {
+  type: 'client' | 'staff'
+}
+const PizzaList = (props: PizzaListProps) => {
+  const { type } = props
   const { data, isPending } = useQuery({
     queryKey: ['getAllPizza'],
     queryFn: getAllPizza,
@@ -14,7 +17,7 @@ const PizzaList = () => {
   return (
     <div className='grid grid-cols-2 tablet:grid-cols-4'>
       {data.map((pizza: PizzaType, index: number) => (
-        <Pizza key={index} pizza={pizza} isPending={isPending} />
+        <Pizza key={index} pizza={pizza} isPending={isPending} type={type} />
       ))}
     </div>
   )

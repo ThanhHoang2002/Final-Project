@@ -11,9 +11,10 @@ import ReceivingMethod from '../../receivingMethod/components'
 interface FoodProps {
   food: FoodEntity
   isPending: boolean
+  type: 'client' | 'staff'
 }
 const Food = (props: FoodProps) => {
-  const { food, isPending } = props
+  const { food, isPending, type } = props
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
   const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const { t } = useTranslation('order')
@@ -22,11 +23,16 @@ const Food = (props: FoodProps) => {
     setIsLoadingImage(() => false)
   }
   const handleAddFood = () => {
-    if (!selectedStore) {
-      dispatch(openModal(<ReceivingMethod />))
-    } else {
+    if (type === 'staff') {
       dispatch(AddFoodToOrder(food))
       toast.success(t('Add to cart successfully'))
+    } else {
+      if (!selectedStore) {
+        dispatch(openModal(<ReceivingMethod />))
+      } else {
+        dispatch(AddFoodToOrder(food))
+        toast.success(t('Add to cart successfully'))
+      }
     }
   }
   return (

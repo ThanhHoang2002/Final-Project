@@ -24,7 +24,7 @@ const OrderRoute = () => {
   }, [location.pathname])
   return (
     <OrderLayout>
-      <div className='w-full min-h-screen h-[1000px] flex flex-col'>
+      <div className='w-full min-h-screen flex flex-col'>
         <div className='w-full fixed desktop:sticky desktop:top-[64px] bottom-[60px] z-20 '>
           <Category />
         </div>

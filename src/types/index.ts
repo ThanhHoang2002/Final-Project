@@ -114,6 +114,8 @@ export type Client = {
   phone: string
   email: string
   password: string
+  point: number
+  avatar: string
 }
 
 export type User = {
@@ -162,4 +164,12 @@ export type Order = {
   pizzaInOrders: PizzaInOrder[]
   foodInOrders: FoodInOrder[]
   total?: number
+}
+export enum ROLES {
+  MANAGER = 'MANAGER',
+  STAFF = 'STAFF'
+}
+export type Role = {
+  name: ROLES
+  description: string
 }

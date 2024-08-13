@@ -1,30 +1,63 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { closeModal } from '../../../store/slices/ModalSlice'
+import { login as loginDispatch } from '../../../store/slices/ClientSlice'
 import { useAppDispatch } from '../../../hooks/reduxHooks'
-import login from '../../../assets/images/background/login.jpg'
+import loginImg from '../../../assets/images/background/login.jpg'
 import showPassword from '../../../assets/images/icons/show-password.png'
+import { useFormik } from 'formik'
+import { login } from '../api/login'
+import Information from '../../../assets/svg/information'
+import ComponentLoading from '../../../components/ui/Loading/ComponentLoading'
+// import { GoogleLogin } from '@react-oauth/google'
 const LoginForm = () => {
   const [hiddenPassword, setHiddenPassword] = useState<boolean>(false)
   const [rememberMe, setRememberMe] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  // const responseMessage = (response) => {
+  //   console.log('response', response)
+  // }
+  // const errorMessage = (error) => {
+  //   console.log(error)
+  // }
+  const loginForm = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    onSubmit: async (values) => {
+      setIsLoading(true)
+      const response = await login(values)
+      setIsLoading(false)
+      if (response.success) {
+        dispatch(loginDispatch(response.data.userInfo))
+        dispatch(closeModal())
+      } else {
+        setError('Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.')
+      }
+    }
+  })
   return (
     <div className='relative flex justify-center items-center'>
       <div className='tablet:w-[960px] w-[90%] h-[487.7px] flex  '>
-        <img className='w-[50%] rounded-l-md hidden tablet:block' src={login} alt='banner' />
+        <img className='w-[50%] rounded-l-md hidden tablet:block' src={loginImg} alt='banner' />
         <div className='tablet:w-[50%] w-full text-center bg-white shadow-lg tablet:rounded-l-none rounded-md '>
           <p className='text-[#A80000] font-normal text-[25px] pt-[50px]'>🍕🍕 WELCOME!</p>
           <p className='mt-[2px] text-[rgb(0,0,0,0.87)] text-sm tracking-[0.01071em] font-medium uppercase w-full px-5 tablet:w-[70%] tablet:translate-x-[25%]'>
             Chào mừng bạn đến với pizzeria! Đăng nhập trước khi thanh toán để tích điểm - Đổi Pizza nhé!
           </p>
-          <form className='h-auto mx-[35px] tablet:mx-[57px] text-left'>
+          <form className='h-auto mx-[35px] tablet:mx-[57px] text-left' onSubmit={loginForm.handleSubmit}>
             <label className='font-bold text-sm'> Email *</label>
             <input
               className='peer w-full h-[40px] border-2 rounded-[4px] border-[rgba(70, 90, 126, 0.4)] px-[14px] py-[10.5px] focus:outline-none focus:border-[#07bc0c]
             invalid:border-[#f44336]  focus:invalid:border-[#f44336] focus:invalid:ring-[#f44336]
             '
               type='email'
+              name='email'
+              onChange={loginForm.handleChange}
             />
             <p className='mt-2 ml-4 invisible peer-invalid:visible text-[#f44336] text-xs'>Email không hợp lệ</p>
             <label className='font-bold text-sm'> Mật Khẩu *</label>
@@ -32,6 +65,8 @@ const LoginForm = () => {
               <input
                 className=' w-[90%] h-[40px]  px-[14px] py-[10.5px]  border-2 rounded-[4px] border-[rgba(70, 90, 126, 0.4)] focus:outline-none focus:border-[#07bc0c]'
                 type={`${hiddenPassword === true ? 'text' : 'password'}`}
+                name='password'
+                onChange={loginForm.handleChange}
               />
               {hiddenPassword === false ? (
                 <img
@@ -62,11 +97,23 @@ const LoginForm = () => {
                 Quên mật khẩu?
               </Link>
             </div>
-            <button className='bg-[#0A8020] mt-5 text-white w-[80%] h-[33px] mx-[10%] rounded-[4px] text-sm'>
+            <button
+              className='bg-[#0A8020] mt-5 text-white w-[80%] h-[33px] mx-[10%] rounded-[4px] text-sm'
+              type='submit'
+            >
               ĐĂNG NHẬP
             </button>
+            {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
+            <div>
+              {error && (
+                <div className='flex items-center p-2 mt-2 bg-[rgb(253,236,234)] rounded-[4px]'>
+                  <Information color='red' />
+                  <p className='text-[#f44336] text-sm ml-2'>{error}</p>
+                </div>
+              )}
+            </div>
           </form>
-          <div className='text-sm m-[18px]'>
+          <div className={`${error && 'mt-2'} text-sm m-[18px]`}>
             Bạn chưa có tài khoản?{' '}
             <button
               onClick={() => {
@@ -83,6 +130,7 @@ const LoginForm = () => {
           <img className='w-[30px]' src='https://cdn.pizzahut.vn/images/Web_V3/Member/close.png' alt='close'></img>
         </button>
       </div>
+      {isLoading && <ComponentLoading />}
     </div>
   )
 }

@@ -29,7 +29,6 @@ const orderSlice = createSlice({
     AddPizzaToOrder: (state, action) => {
       const pizza: Pizza = action.payload.chosenPizza
       const base: string = action.payload.base
-      console.log(pizza)
       const index = state.pizzaInOrders.findIndex((p) => p.pizza.pizzaId === pizza.pizzaId && p.base === base)
       if (index === -1) {
         const pizzaInOrder = {

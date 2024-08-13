@@ -65,3 +65,15 @@
 .ant-drawer .ant-drawer-body {
   padding: 0;
 }
+:where(.css-dev-only-do-not-override-98ntnt).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-98ntnt).ant-menu-light > .ant-menu .ant-menu-item-selected {
+  background-color: rgb(236 239 241 / 0.5) !important;
+  color: black !important;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-menu{
+  font-size: medium !important;
+}
+.ant-table-title{
+  font-size: large !important;
+  font-weight: 600 !important;
+}

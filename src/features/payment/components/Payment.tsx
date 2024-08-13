@@ -12,6 +12,7 @@ import Noti from '../../../components/ui/Noti'
 import { resetOrder } from '../../../store/slices/OrderSlice'
 import { Order, Store } from '../../../types'
 import { postOrder } from '../api/postOrder'
+import LoginForm from '../../auth-client/components/login-form'
 const Payment = () => {
   const dispatch = useAppDispatch()
   const order = useAppSelector((state) => state.OrderState)
@@ -19,6 +20,7 @@ const Payment = () => {
   const { receivingMethod, address, selectedStore } = useAppSelector((state) => state.receivingMethodState)
   const [chosenPaymentMethod, setChosenPaymentMethod] = useState<number>(0)
   const { t } = useTranslation('payment')
+  const client = useAppSelector((state) => state.ClientState.client)
   const handleChangePaymentMethod = (index: number) => {
     if (index > 0) {
       dispatch(openModal(<Noti text={t('Payment method is invalid')} />))
@@ -45,22 +47,26 @@ const Payment = () => {
         state: 'Chờ xác nhận',
         name: values.fullName,
         phone: values.phoneNumber,
-        client: null,
+        client: client,
         staff: null,
         comboInOrders: order.comboInOrders,
         pizzaInOrders: order.pizzaInOrders,
         foodInOrders: order.foodInOrders
       }
-      const response = postOrder(orderInput)
-      response
-        .then((res) => {
-          navigate(`/thank-you/${res.order_id}`)
-          dispatch(resetOrder())
-          action.resetForm()
-        })
-        .catch(() => {
-          dispatch(openModal(<Noti text={'Order failed'} />))
-        })
+      if (client === null) {
+        dispatch(openModal(<LoginForm />))
+      } else {
+        const response = postOrder(orderInput)
+        response
+          .then((res) => {
+            navigate(`/thank-you/${res.order_id}`)
+            dispatch(resetOrder())
+            action.resetForm()
+          })
+          .catch(() => {
+            dispatch(openModal(<Noti text={'Đặt hàng thất bại'} />))
+          })
+      }
     }
   })
   return (

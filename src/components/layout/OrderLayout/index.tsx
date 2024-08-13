@@ -34,7 +34,7 @@ const OrderLayout = ({ children }: OrderLayoutProps) => {
         </div>
         <div className='z-20'>
           <div className='desktop:fixed desktop:block h-screen w-[25%] bg-white border-l top-0 right-0 hidden'>
-            <Cart />
+            <Cart type='client' />
           </div>
           <div className='w-full bg-white fixed bottom-0 left-0 desktop:hidden h-[60px] z-50'>
             <div className='w-full h-[56.5px] p-[10px]'>
@@ -78,7 +78,7 @@ const OrderLayout = ({ children }: OrderLayoutProps) => {
               style={{ filter: ` ${isOpenModal ? 'brightness(50%)' : ''}` }}
             >
               <div className='h-screen'>
-                <Cart isOpenBack={true} onClick={onClose} />
+                <Cart type='client' isOpenBack={true} onClick={onClose} />
               </div>
             </Drawer>
           </div>

@@ -20,7 +20,8 @@ export default {
         'fullscreen-minus-64': 'calc(100vh - 64px)'
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif']
+        montserrat: ['Montserrat', 'sans-serif'],
+        roboto: ['Roboto', 'Helvetica', 'Arial', 'sans-serif']
       }
     },
     screens: {

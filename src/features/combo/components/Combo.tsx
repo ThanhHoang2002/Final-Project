@@ -12,9 +12,10 @@ import ReceivingMethod from '../../receivingMethod/components'
 interface ComboProps {
   combo: ComboEntity
   isPending: boolean
+  type: 'client' | 'staff'
 }
 const Combo = (props: ComboProps) => {
-  const { combo, isPending } = props
+  const { combo, isPending, type } = props
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
   const { t } = useTranslation('order')
   const dispatch = useAppDispatch()
@@ -23,12 +24,17 @@ const Combo = (props: ComboProps) => {
   }
   const selectedStore = useAppSelector((state) => state.receivingMethodState.selectedStore)
   const handleAddCombo = () => {
-    if (!selectedStore) {
-      dispatch(openModal(<ReceivingMethod />))
-    } else {
+    if (type === 'staff') {
       dispatch(AddComboToOrder(combo))
       toast.success(t('Add to cart successfully'))
-      dispatch(closeModal())
+    } else {
+      if (!selectedStore) {
+        dispatch(openModal(<ReceivingMethod />))
+      } else {
+        dispatch(AddComboToOrder(combo))
+        toast.success(t('Add to cart successfully'))
+        dispatch(closeModal())
+      }
     }
   }
   return (

@@ -17,9 +17,10 @@ const FoodList = (props: FoodListProps) => {
     staleTime: Infinity
   })
   if (isPending) return <ComponentLoading />
+  const foods = data as FoodEntity[]
   return (
     <div className='grid grid-cols-2 tablet:grid-cols-4'>
-      {data.map((food: FoodEntity, index: number) => (
+      {foods.map((food: FoodEntity, index: number) => (
         <Food key={index} food={food} isPending={isPending} type={type} />
       ))}
     </div>

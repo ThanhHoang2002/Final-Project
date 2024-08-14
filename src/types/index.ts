@@ -63,7 +63,8 @@ export type Pizza = {
   pizzaId: string
   size: string
   price: number
-  name: string
+  name?: string
+  pizzaType?: PizzaType
 }
 
 export enum ECrust {
@@ -84,8 +85,8 @@ export type Combo = {
   comboId: string
   name: string
   price: number
-  dayStart: Date
-  dayEnd: Date
+  dayStart: string
+  dayEnd: string
   image: string
   category: string
   des: string

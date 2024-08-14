@@ -22,13 +22,14 @@ const Recommendation = () => {
     window.scrollTo(0, 0)
   }
   if (isLoading) return <Loading />
+  const pizzaType = data as PizzaType[]
   return (
     <div className='px-[10%] py-5 mb-20'>
       <div className='w-full  border-b pb-1'>
         <div className='capitalize text-2xl font-semibold text-[#c00a27]'> Best Seller</div>
       </div>
       <div className='grid grid-cols-4 gap-4 '>
-        {data.map((pizza: PizzaType) => (
+        {pizzaType.map((pizza: PizzaType) => (
           <div key={pizza.pizzaTypeId}>
             <div className={`m-[6px] h-auto border rounded-md shadow-md relative ${isLoadingImage ? 'hidden' : ''}`}>
               <div className='group' onClick={handleClick}>
@@ -55,7 +56,8 @@ const Recommendation = () => {
                 </div>
                 <button
                   type='button'
-                  className='text-green font-medium rounded-lg text-sm px-5 text-center hover:text-white border border-green hover:bg-green  dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 '
+                  className='text-green font-medium rounded-lg text-sm px-5 text-center hover:text-white border border-green hover:bg-green 
+                  transition-colors duration-300 hidden desktop:block'
                   onClick={handleClick}
                 >
                   {t('See More')}

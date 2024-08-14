@@ -14,9 +14,10 @@ const PizzaList = (props: PizzaListProps) => {
     staleTime: Infinity
   })
   if (isPending) return <ComponentLoading />
+  const pizzas = data as PizzaType[]
   return (
     <div className='grid grid-cols-2 tablet:grid-cols-4'>
-      {data.map((pizza: PizzaType, index: number) => (
+      {pizzas.map((pizza: PizzaType, index: number) => (
         <Pizza key={index} pizza={pizza} isPending={isPending} type={type} />
       ))}
     </div>

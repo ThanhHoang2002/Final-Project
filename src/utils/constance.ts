@@ -22,3 +22,4 @@ export const paymentMethod = [
   }
 ]
 export const BaseURLGoongAPI = env.VITE_GOONG_MAPS_BASE_URL
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))

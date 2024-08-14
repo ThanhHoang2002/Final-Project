@@ -17,9 +17,10 @@ const ComboList = (props: ComboListProps) => {
     staleTime: Infinity
   })
   if (isPending) return <ComponentLoading />
+  const combos = data as ComboEntity[]
   return (
     <div className='grid grid-cols-1 tablet:grid-cols-2 p-2'>
-      {data.map((combo: ComboEntity, index: number) => (
+      {combos.map((combo: ComboEntity, index: number) => (
         <Combo key={index} combo={combo} isPending={isPending} type={type} />
       ))}
     </div>

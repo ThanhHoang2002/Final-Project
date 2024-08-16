@@ -3,12 +3,14 @@ import { closeModal } from '../../../store/slices/ModalSlice'
 
 interface NotiProps {
   text: string
+  accept?: () => void
 }
 const Noti = (props: NotiProps) => {
-  const { text } = props
+  const { text, accept } = props
   const dispatch = useAppDispatch()
   const handleClick = () => {
     dispatch(closeModal())
+    accept && accept()
   }
   return (
     <div className='w-[444px] bg-white rounded-[4px] relative shadow-xl'>

@@ -61,28 +61,30 @@ const LoginForm = () => {
             />
             <p className='mt-2 ml-4 invisible peer-invalid:visible text-[#f44336] text-xs'>Email không hợp lệ</p>
             <label className='font-bold text-sm'> Mật Khẩu *</label>
-            <div className='w-full flex items-center'>
+            <div className='relative w-full flex items-center'>
               <input
-                className=' w-[90%] h-[40px]  px-[14px] py-[10.5px]  border-2 rounded-[4px] border-[rgba(70, 90, 126, 0.4)] focus:outline-none focus:border-[#07bc0c]'
+                className='w-full h-[40px]  px-[14px] py-[10.5px]  border-2 rounded-[4px] border-[rgba(70, 90, 126, 0.4)] focus:outline-none focus:border-[#07bc0c]'
                 type={`${hiddenPassword === true ? 'text' : 'password'}`}
                 name='password'
                 onChange={loginForm.handleChange}
               />
-              {hiddenPassword === false ? (
-                <img
-                  className='ml-2 p-[8px] cursor-pointer h-[40px] w-[40px] rounded-[50%] hover:bg-slate-100 hover:transition-all'
-                  src={showPassword}
-                  alt='eye'
-                  onClick={() => setHiddenPassword(true)}
-                ></img>
-              ) : (
-                <img
-                  className='ml-2 p-[8px] cursor-pointer h-[40px] w-[40px] rounded-[50%] hover:bg-slate-100 hover:transition-all'
-                  src='https://firebasestorage.googleapis.com/v0/b/pizza-fe093.appspot.com/o/image%2Ficon%2Ficons8-hide-24.png?alt=media&token=bcb6d1a8-da9f-4033-94f4-ecb7d84b64d5'
-                  alt='eye'
-                  onClick={() => setHiddenPassword(false)}
-                ></img>
-              )}
+              <div className='absolute right-0'>
+                {hiddenPassword === false ? (
+                  <img
+                    className='ml-2 p-[8px] cursor-pointer h-[40px] w-[40px] rounded-[50%] hover:bg-slate-100 hover:transition-all'
+                    src={showPassword}
+                    alt='eye'
+                    onClick={() => setHiddenPassword(true)}
+                  ></img>
+                ) : (
+                  <img
+                    className='ml-2 p-[8px] cursor-pointer h-[40px] w-[40px] rounded-[50%] hover:bg-slate-100 hover:transition-all'
+                    src='https://firebasestorage.googleapis.com/v0/b/pizza-fe093.appspot.com/o/image%2Ficon%2Ficons8-hide-24.png?alt=media&token=bcb6d1a8-da9f-4033-94f4-ecb7d84b64d5'
+                    alt='eye'
+                    onClick={() => setHiddenPassword(false)}
+                  ></img>
+                )}
+              </div>
             </div>
             <div className='flex justify-between items-center mt-3'>
               <div className='flex items-center '>

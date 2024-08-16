@@ -1,4 +1,4 @@
-import { api_auth } from '../../../lib/api-auth'
+// import { api_auth } from '../../../lib/api-auth'
 export interface PostRegisterRequest {
   name: string
   gender: string
@@ -9,8 +9,19 @@ export interface PostRegisterRequest {
   email: string
   passwordOrOtp: string
 }
+// export const postRegister = async (body: PostRegisterRequest) => {
+//   const URL = `/register`
+//   const response = await api_auth.post(URL, body)
+//   return response.data
+// }
+import { addClient } from '../../../db/client'
+import { delay } from '../../../utils/constance'
 export const postRegister = async (body: PostRegisterRequest) => {
-  const URL = `/register`
-  const response = await api_auth.post(URL, body)
-  return response.data
+  await delay(200)
+  const response = addClient(body)
+  return {
+    success: true,
+    statusCode: '200',
+    data: response
+  }
 }

@@ -110,13 +110,13 @@ export type PizzaInCombo = {
 export type Client = {
   clientId: number
   name: string
-  dateOfBirth: Date
+  birthday: Date
   gender: string
   phone: string
   email: string
-  password: string
+  password?: string
   point: number
-  avatar: string
+  avatar?: string
 }
 
 export type User = {

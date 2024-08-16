@@ -31,8 +31,8 @@ const Payment = () => {
   const paymentForm = useFormik({
     initialValues: {
       note: '',
-      fullName: '',
-      phoneNumber: ''
+      fullName: client !== null ? client.name : '',
+      phoneNumber: client !== null ? client.phone : ''
     },
     validationSchema: validationPaymentSchema,
 

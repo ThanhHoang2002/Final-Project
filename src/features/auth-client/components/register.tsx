@@ -14,8 +14,14 @@ import { sendOTP } from '../api/sendOtp'
 import Noti from '../../../components/ui/Noti'
 import { postRegister } from '../api/postRegister'
 import ComponentLoading from '../../../components/ui/Loading/ComponentLoading'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../../../store/slices/ClientSlice'
 const Register = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const back = () => {
+    navigate(-1)
+  }
   const registerForm = useFormik({
     initialValues: {
       name: '',
@@ -40,8 +46,9 @@ const Register = () => {
         const response = await postRegister(data)
         setIsLoaded(true)
         if (response.success) {
+          dispatch(login(response.data))
           action.resetForm()
-          dispatch(openModal(<Noti text='Đăng ký thành công' />))
+          dispatch(openModal(<Noti text='Đăng ký thành công' accept={back} />))
         } else {
           if (response.statusCode === 'OTP0001') {
             setError('Mã OTP không chính xác')
@@ -70,6 +77,9 @@ const Register = () => {
       className={`w-full h-fullscreen-minus-64 flex tablet:justify-center tablet:items-center `}
       style={{ backgroundImage: `url(${bg})` }}
     >
+      <div>
+        <button> Test</button>
+      </div>
       <div className='flex flex-col tablet:max-w-[960px] bg-white w-full'>
         <img src={headerImage} className='tablet:hidden' />
         <img src={headerImageTablet} className=' hidden tablet:block' />

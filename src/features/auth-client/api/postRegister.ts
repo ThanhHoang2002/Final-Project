@@ -18,6 +18,13 @@ import { addClient } from '../../../db/client'
 import { delay } from '../../../utils/constance'
 export const postRegister = async (body: PostRegisterRequest) => {
   await delay(200)
+  if (body.passwordOrOtp != '1234') {
+    return {
+      success: false,
+      statusCode: 'OTP0001',
+      message: 'OTP is incorrect'
+    }
+  }
   const response = addClient(body)
   return {
     success: true,

@@ -7,22 +7,23 @@
 // }
 import emailjs from '@emailjs/browser'
 export const sendOTP = async (email: string) => {
-  return {
-    success: true,
-    message: email
-  }
-}
-export const testOTP = async (email: string) => {
   const templateParams = {
-    email: email,
-    otp: '1234'
+    reply_to: email
   }
-  emailjs.send('service_thk7nmp', 'YOUR_TEMPLATE_ID', templateParams).then(
-    (response) => {
-      console.log('SUCCESS!', response.status, response.text)
+  emailjs.init('82Of-JfKyooPzwnFH')
+  const response = emailjs.send('service_8zxymkp', 'template_repy3xc', templateParams).then(
+    () => {
+      return {
+        success: true,
+        message: email
+      }
     },
     (error) => {
-      console.log('FAILED...', error)
+      return {
+        success: false,
+        message: error
+      }
     }
   )
+  return response
 }

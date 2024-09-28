@@ -77,9 +77,6 @@ const Register = () => {
       className={`w-full h-fullscreen-minus-64 flex tablet:justify-center tablet:items-center `}
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <div>
-        <button> Test</button>
-      </div>
       <div className='flex flex-col tablet:max-w-[960px] bg-white w-full'>
         <img src={headerImage} className='tablet:hidden' />
         <img src={headerImageTablet} className=' hidden tablet:block' />

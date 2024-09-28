@@ -106,7 +106,7 @@ const dataRaw: Banner[] = [
     BANNER_IMAGE_LINK_TABLET_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/DESTKOP-ENG_16702_260320240914.jpg',
     BANNER_IMAGE_LINK_MOBILE: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/MOBILE-VIE_T46OF_260320240914.jpg',
     BANNER_IMAGE_LINK_MOBILE_EN: 'https://cdn.pizzahut.vn/images/Web_V3/Homepage/MOBILE-ENG_ZHP34_260320240914.jpg',
-    BANNER_DIRECTIONAL_LINK: '/signup',
+    BANNER_DIRECTIONAL_LINK: '/register',
     OUTSIDE_LINK: 'false'
   },
   {
